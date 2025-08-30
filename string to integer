@@ -1,0 +1,14 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+ int main(){
+    string s;
+    getline(cin,s);
+    int n=s.size();
+     
+    if(n%2==0 && n>0){
+reverse(s.begin()+n/2,s.end());
+    }
+cout<<s;
+return 0;
+ }
