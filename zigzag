@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string>v(numRows);
+        if(numRows == 1) return s;
+        bool flag = false;
+        int i=0;
+        for(auto ch:s){
+            v[i] = v[i]+ch;
+
+
+        if(i==0||i  == numRows-1){// change the direction
+               flag=!flag;
+        }
+        if(flag){
+            i++;
+        }
+        else{
+            i--;
+        }
+
+        }
+        string zigzag ="";
+     for(auto str:v){
+        zigzag+=str;
+     }
+     return zigzag;
+    }
+};
