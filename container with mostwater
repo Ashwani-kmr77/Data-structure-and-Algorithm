@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxwat=0;
+        int n=height.size();
+        int lb=0;
+        int up=n-1;
+        while(lb<up){
+       int wt = up -lb;
+       int ht = min(height[up],height[lb]);
+       int currwat = wt*ht;
+       maxwat = max(maxwat,currwat);
+       if(height[up]<height[lb]){
+           up--;
+       }
+       else lb++;
+        }
+        return maxwat;
+        
+    }
+};
