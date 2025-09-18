@@ -1,0 +1,18 @@
+class Solution {
+public:    
+         vector<vector<int>>dp;
+    int  coinways(vector<int>& coins,int amount,int n){
+        if(amount==0) return 1;
+        if(amount<0) return 0;
+        if(n==0 && amount>0) return 0;
+        if(dp[n][amount]!=-1) return dp[n][amount];
+        return   dp[n][amount]=coinways(coins,amount,n-1)+coinways(coins,amount-coins[n-1],n);
+     }
+    int change(int amount, vector<int>& coins) {
+
+        int n= coins.size();
+        dp.assign(n+1,vector<int>(amount+1,-1));
+        return coinways(coins,amount,n);
+        
+    }
+};
