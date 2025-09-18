@@ -1,0 +1,24 @@
+class Solution {
+public:   
+        vector<vector<int>>dp;
+      bool equalpartition(vector<int>& nums,int n,int target){
+       if(target ==0) return true;
+       if(n==0)return false;
+       if(dp[n][target]!=-1) return dp[n][target];
+       if(nums[n-1]>target) return dp[n][target]=equalpartition(nums,n-1,target);
+       return dp[n][target]= equalpartition(nums,n-1,target) ||equalpartition(nums,n-1,target-nums[n-1]);
+      }
+    bool canPartition(vector<int>& nums) {
+        
+        int n= nums.size();
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+        }
+        if(sum%2!=0) return false;
+        int target = sum/2;
+        dp.assign(n+1,vector<int>(target+1,-1));
+        return equalpartition(nums,n,target);
+        
+    }
+};
