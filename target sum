@@ -1,0 +1,21 @@
+class Solution {
+public:
+        vector<vector<int>>dp;
+        int maxsum=2000;
+        int offset=1000;
+     int answer(vector<int>& nums,int target , int index , int  sum ){
+         if(index==nums.size()) return sum==target?1:0;
+         if(dp[index][sum+offset]!=-1) return dp[index][sum+offset];
+         int add= answer(nums , target , index+1 , sum+nums[index]);
+         int substract = answer(nums , target , index+1 , sum-nums[index]);
+         return dp[index][sum+offset]=add+substract;
+
+     }
+
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n =nums.size();
+         dp.assign(n,vector<int>(maxsum+1,-1));
+          return answer(nums,target,0,0);
+
+    }
+};
