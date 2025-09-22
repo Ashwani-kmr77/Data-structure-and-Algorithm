@@ -1,0 +1,31 @@
+class Solution {
+public:
+       int index;
+    string decodeString(string s) {
+        string result = "";
+        while(index<s.length() && s[index]!=']'){
+            char currentchar = s[index];
+        // if it is a digit 
+        if(isdigit(currentchar)){
+            int k=0;
+            while(index<s.size()&& isdigit(s[index])){
+                k=k*10+(s[index]-'0');
+                index++;
+            }
+            index++;
+            string subdecode = decodeString(s);
+            while(k>0){
+                result += subdecode;
+                k--;
+            }
+            index++;
+        }
+            else{
+                result += currentchar; //case -2 if it is a letter 
+                index++;
+            }
+        }
+        return result;
+        
+    }
+};
