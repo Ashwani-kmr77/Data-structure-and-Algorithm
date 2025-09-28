@@ -1,0 +1,33 @@
+class Solution {
+public:
+   
+     vector<vector<int>>dp;
+
+     
+     int helpher(vector<vector<int>>& grid,int row,int col){
+     if(row==grid.size()-1 && col == grid[0].size()-1){
+        return    grid[row][col];
+     }
+     if(row == grid.size()-1){
+        return     grid[row][col] + helpher(grid,row,col+1);
+     }
+     if(col == grid[0].size()-1){
+        return  grid[row][col] + helpher(grid,row+1,col);
+        }
+    if((dp[row][col])!=-1) return dp[row][col];
+
+
+     int right = helpher(grid,row,col+1);
+     int down = helpher(grid,row+1,col);
+
+     return dp[row][col] =  grid[row][col] + min (right,down);
+     }
+
+    
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+         dp.assign(m,vector<int>(n,-1));
+        return helpher(grid,0,0); 
+    }
+};
