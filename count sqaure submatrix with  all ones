@@ -1,0 +1,36 @@
+class Solution {
+public:
+       vector<vector<int>>dp;
+    int helpher(int i ,int j,vector<vector<int>>& matrix ){
+      if (i>=matrix.size()||j>=matrix[0].size()){
+        return 0;
+      }
+       if(matrix[i][j]==0){
+        return 0;
+       }
+       if((dp[i][j])!=-1)  return dp[i][j];
+
+       int right = helpher(i,j+1,matrix);
+       int down =  helpher(i+1,j,matrix);
+       int diagonal = helpher(i+1,j+1,matrix);
+      
+       return  dp[i][j]= 1 + min({right,down,diagonal});
+    }
+    int countSquares(vector<vector<int>>& matrix) {
+        
+        int m = matrix.size();
+        int n = matrix[0].size();
+        dp.assign(m,vector<int>(n,-1));
+          int result =0;
+         for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==1){
+                    result+=helpher(i,j,matrix);
+
+                }
+            }
+         }
+         return result;
+        
+    }
+};
