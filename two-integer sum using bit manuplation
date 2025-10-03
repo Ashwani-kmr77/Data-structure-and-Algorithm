@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int getSum(int a, int b) {
+         if(b==0) return a;
+        // a^b gives sum and a&&b<<<1 gives carry
+        // when carry becomes zero retrun 0;
+         return getSum(a^b,(a&b)<<1);
+      
+    }
+};
