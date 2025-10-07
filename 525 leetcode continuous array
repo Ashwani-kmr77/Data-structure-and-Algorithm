@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int,int>balancemap;
+        int maxlength =0;
+        int balance =0;
+         balancemap[0] =-1;
+          for(int i=0;i<n;i++){
+            balance += nums[i]==1?1:-1;
+           // check balance was seen before 
+           if(balancemap.find( balance)!=balancemap.end()){
+            maxlength = max(maxlength,i-balancemap[balance]);
+           }
+           else{
+            // store the first occurence of this balance
+              balancemap[balance] =i;
+           }
+        }
+        return maxlength;
+        
+    }
+};
