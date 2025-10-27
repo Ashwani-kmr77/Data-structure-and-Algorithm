@@ -1,0 +1,20 @@
+class Solution {
+public:
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        
+        // if array is empty return null
+        if(nums.empty()) return nullptr;
+        // find the index of max element 
+        int maxindex = max_element(nums.begin(),nums.end())-nums.begin();
+        // create a tree node with maximum element 
+        TreeNode* root  = new TreeNode(nums[maxindex]);
+        // construct the left subtree from elelment before the maximum element
+           vector<int>left(nums.begin(),nums.begin()+maxindex);
+           root->left = constructMaximumBinaryTree(left);
+           // construct the right subtree from the elements after maximum elements 
+           vector<int>right(nums.begin()+maxindex+1,nums.end());
+           root->right = constructMaximumBinaryTree(right);
+           return root;
+
+    }
+};
