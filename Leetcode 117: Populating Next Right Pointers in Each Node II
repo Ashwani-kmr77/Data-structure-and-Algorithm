@@ -1,0 +1,45 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root) return nullptr;
+        Node* head = root;   // start with the head of current level
+        
+        while(head!=nullptr){
+            Node* dummy = new Node();// dummy node to start linking the next level
+            Node* tail = dummy ;
+            // tail keeps track of the end of the new next level 
+            for(Node* current = head; current!= nullptr ; current = current->next){
+                if(current->left){
+                    tail->next = current->left;
+                    tail = tail->next; // move to newly added node
+                }
+                if(current->right){
+                    tail->next = current->right;
+                    tail = tail->next; // move to newly added node
+                }
+            }
+            head = dummy->next;
+            delete dummy ;
+        }
+        return root;
+        
+    }
+};
