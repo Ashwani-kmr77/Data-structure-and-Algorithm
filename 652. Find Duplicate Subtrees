@@ -1,0 +1,18 @@
+class Solution {
+public:
+       string getSubTree(TreeNode* root,  unordered_map<string,int>&mp,vector<TreeNode*>&result){
+        if(root == nullptr) return "N";
+
+        string s = to_string(root->val)+","+ getSubTree(root->left,mp,result) + "," +getSubTree(root->right,mp,result);
+        if(mp[s]==1) result.push_back(root);
+        mp[s]++;
+        return s;
+       }
+
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+        unordered_map<string,int>mp;
+        vector<TreeNode*>result;
+        getSubTree(root,mp,result);
+        return result;
+    }
+};
