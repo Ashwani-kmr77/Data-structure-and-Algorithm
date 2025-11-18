@@ -1,0 +1,30 @@
+class MyCalendar {
+public:
+     set<pair<int,int>>st;
+    MyCalendar() {
+    }
+    
+    bool book(int startTime, int endTime) {
+        // find the first time that start after
+        auto it = st.lower_bound({startTime,endTime});
+        // check with current event overlap with next event
+        if(it!=st.end() && it->first< endTime){
+            return false;
+        }
+        // check the current element overlap with previous element
+        if(it!= st.begin()){
+            auto previt = prev(it);
+            if(startTime< previt->second){
+                return false;
+            }
+        }
+        st.insert({startTime,endTime});
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(startTime,endTime);
+ */
