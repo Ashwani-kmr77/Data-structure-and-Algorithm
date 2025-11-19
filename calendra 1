@@ -1,0 +1,28 @@
+class MyCalendar {
+public:
+
+    set<pair<int,int>>st;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int startTime, int endTime) {
+        
+        // start the  first event that start or start same time 
+       auto   it = st.lower_bound({startTime,endTime});
+
+        // check the current event overlap with next event 
+        if(it!=st.end() && it->first <endTime){
+            return false;
+        }
+       // check current event overlap with prev event 
+       if(it!= st.begin()){
+        auto previt = prev(it);
+        if(previt->second > startTime){
+            return false ;
+            }
+         }
+        st.insert({startTime,endTime});
+        return true;
+    }
+};
