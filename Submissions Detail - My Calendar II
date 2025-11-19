@@ -1,0 +1,41 @@
+class MyCalendarTwo {
+public:
+
+    vector<pair<int,int>> doubleoverregion;
+    vector<pair<int,int>> overallbooking;
+    bool checkoverlap(int start1 , int end1 , int start2, int end2){
+        return max(start1,start2) < min(end1 , end2);
+    }
+
+    pair<int,int>findoverlappedregion(int start1,int end1 , int start2 , int end2){
+        return { max(start1,start2),min(end1,end2)} ;
+    }
+
+
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int startTime, int endTime) {
+        // check triple booking is created or not 
+        for(pair<int,int>region:doubleoverregion){
+            if(checkoverlap(region.first,region.second,startTime,endTime)){
+                return false;
+            }
+        }
+        // check if  it is creating double booking
+        for(pair<int,int>booking : overallbooking){
+            if(checkoverlap(booking.first , booking.second,startTime , endTime)){
+                doubleoverregion.push_back(findoverlappedregion(booking.first , booking.second,startTime , endTime));
+            }
+        }
+        overallbooking.push_back({startTime,endTime});
+        return true ;
+    }
+};
+
+/**
+ * Your MyCalendarTwo object will be instantiated and called as such:
+ * MyCalendarTwo* obj = new MyCalendarTwo();
+ * bool param_1 = obj->book(startTime,endTime);
+ */
