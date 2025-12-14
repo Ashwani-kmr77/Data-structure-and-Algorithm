@@ -1,0 +1,41 @@
+class Solution {
+public:
+     
+     bool dfs(vector<vector<int>>& graph,vector<int>&colors,int node,int color){
+        // assign color to the current node
+        colors[node] = color;
+        // traverse all conected nodes 
+        for(int neighbor : graph[node]){
+            // if the neighbour is not colored , assign the opposite and continue color
+            if(colors[neighbor]==-1){
+                if(!dfs(graph,colors,neighbor,1-color)){
+                    return false;
+                }
+            }
+            // if the neighbour has the color,the graph is not bipartited
+            else if(colors[neighbor]==color){
+                return false;
+               }
+        }
+          return true;
+      }
+
+
+
+
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        vector<int>colors(n,-1); // initiliaze all vertices as unclored
+
+  for(int i =0;i<n;i++){
+     // if the current node is not colored,apply dfs coloring 
+     if(colors[i]==-1){
+        
+          if(!dfs(graph,colors,i,0)){
+             return false;
+          }
+       }
+    }
+     return true;
+    }
+};
